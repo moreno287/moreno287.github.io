@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diogo Moreno · Data Analyst, Toronto</title>
+<meta name="description" content="Data Analyst in Toronto. SQL, Python, Power BI and Tableau projects in e-commerce, SAP ERP (order-to-cash, procure-to-pay) and public-sector data.">
+<meta property="og:title" content="Diogo Moreno · Data Analyst">
+<meta property="og:description" content="SQL, Python, Power BI & Tableau projects: e-commerce, SAP ERP, public data.">
+<meta property="og:image" content="https://moreno287.github.io/assets/sap.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%230f1b2d%22/%3E%3Crect x=%227%22 y=%2216%22 width=%224%22 height=%229%22 rx=%221%22 fill=%22%232a78d6%22/%3E%3Crect x=%2214%22 y=%2210%22 width=%224%22 height=%2215%22 rx=%221%22 fill=%22%231baf7a%22/%3E%3Crect x=%2221%22 y=%226%22 width=%224%22 height=%2219%22 rx=%221%22 fill=%22%23eb6834%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f1b2d; --ink-2: #3b4658; --muted: #6b7484; --line: #e4e2dc;
+    --paper: #faf9f6; --card: #ffffff; --blue: #2a78d6; --orange: #eb6834; --aqua: #1baf7a;
+    --radius: 14px; --max: 1120px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.6 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+
+  /* nav */
+  nav { position: sticky; top: 0; z-index: 10; background: rgba(250,249,246,.88); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  nav .brand { font-family: Fraunces, serif; font-weight: 700; font-size: 19px; text-decoration: none; }
+  nav .links { display: flex; gap: 26px; font-size: 14px; }
+  nav .links a { text-decoration: none; color: var(--ink-2); }
+  nav .links a:hover { color: var(--ink); }
+
+  /* hero */
+  header { padding: 88px 0 72px; border-bottom: 1px solid var(--line); }
+  .hero { display: grid; grid-template-columns: 1.35fr 1fr; gap: 56px; align-items: end; }
+  .eyebrow { color: var(--orange); margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+  .eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--aqua); box-shadow: 0 0 0 4px rgba(27,175,122,.18); }
+  h1 { font-family: Fraunces, serif; font-weight: 700; font-size: clamp(40px, 6vw, 68px); line-height: 1.02; letter-spacing: -.02em; margin: 0 0 22px; }
+  h1 em { font-style: normal; color: var(--blue); }
+  .lede { font-size: 19px; color: var(--ink-2); max-width: 560px; margin: 0 0 30px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px; font-weight: 600; font-size: 15px; text-decoration: none; border: 1.5px solid var(--ink); transition: transform .15s, background .15s; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.primary { background: var(--ink); color: #fff; }
+  .btn.ghost:hover { background: #fff; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .stat { background: var(--card); padding: 22px 22px 18px; }
+  .stat b { display: block; font-family: Fraunces, serif; font-size: 34px; line-height: 1.1; }
+  .stat span { color: var(--muted); font-size: 13.5px; }
+
+  section { padding: 84px 0; border-bottom: 1px solid var(--line); }
+  .sec-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 36px; }
+  h2 { font-family: Fraunces, serif; font-weight: 700; font-size: clamp(30px, 4vw, 42px); letter-spacing: -.015em; margin: 6px 0 0; line-height: 1.1; }
+  .sec-head p { max-width: 420px; color: var(--ink-2); margin: 0; }
+
+  /* featured */
+  .feature { display: grid; grid-template-columns: 1.1fr 1fr; gap: 0; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; margin-bottom: 22px; transition: box-shadow .2s; }
+  .feature:hover { box-shadow: 0 18px 40px -24px rgba(15,27,45,.35); }
+  .feature.flip .shot { order: 2; }
+  .shot { background: #f2f1ec; display: flex; align-items: center; justify-content: center; padding: 22px; border-right: 1px solid var(--line); }
+  .feature.flip .shot { border-right: 0; border-left: 1px solid var(--line); }
+  .shot img { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 18px -8px rgba(15,27,45,.25); }
+  .body { padding: 34px 36px; display: flex; flex-direction: column; }
+  .kicker { color: var(--blue); }
+  .body h3 { font-family: Fraunces, serif; font-size: 27px; line-height: 1.15; margin: 10px 0 12px; letter-spacing: -.01em; }
+  .body p { color: var(--ink-2); margin: 0 0 16px; }
+  .findings { list-style: none; padding: 0; margin: 0 0 22px; display: grid; gap: 9px; }
+  .findings li { padding-left: 22px; position: relative; font-size: 15px; }
+  .findings li::before { content: ""; position: absolute; left: 2px; top: 9px; width: 9px; height: 9px; border-radius: 2px; background: var(--orange); }
+  .findings b { font-weight: 600; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px; }
+  .tag { font-size: 12.5px; padding: 4px 10px; border-radius: 999px; background: #f0efe9; color: var(--ink-2); }
+  .links-row { margin-top: auto; display: flex; flex-wrap: wrap; gap: 18px; font-weight: 600; font-size: 15px; }
+  .links-row a { text-decoration: none; border-bottom: 2px solid var(--orange); padding-bottom: 1px; }
+  .links-row a:hover { color: var(--orange); }
+
+  /* grid of smaller projects */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; text-decoration: none; transition: transform .15s, box-shadow .2s; }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -20px rgba(15,27,45,.35); }
+  .card .mono { color: var(--muted); }
+  .card h4 { font-family: Fraunces, serif; font-size: 20px; line-height: 1.2; margin: 10px 0 8px; }
+  .card p { color: var(--ink-2); font-size: 14.5px; margin: 0 0 16px; }
+  .card .go { margin-top: auto; font-weight: 600; font-size: 14px; color: var(--blue); }
+
+  /* skills */
+  .skills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .skill { border-top: 3px solid var(--ink); padding-top: 16px; }
+  .skill:nth-child(2) { border-color: var(--blue); } .skill:nth-child(3) { border-color: var(--orange); } .skill:nth-child(4) { border-color: var(--aqua); }
+  .skill h4 { margin: 0 0 10px; font-size: 16px; }
+  .skill ul { margin: 0; padding: 0; list-style: none; color: var(--ink-2); font-size: 15px; display: grid; gap: 4px; }
+
+  .about { display: grid; grid-template-columns: 1fr 1.3fr; gap: 56px; }
+  .about p { color: var(--ink-2); font-size: 17px; margin: 0 0 16px; }
+
+  footer { padding: 80px 0 56px; background: var(--ink); color: #fff; }
+  footer h2 { color: #fff; }
+  footer p { color: #c4cad4; max-width: 520px; }
+  footer .btn { border-color: #fff; color: #fff; }
+  footer .btn.primary { background: #fff; color: var(--ink); }
+  footer .small { margin-top: 56px; color: #8b94a3; font-size: 13px; }
+
+  @media (max-width: 900px) {
+    .hero, .feature, .about { grid-template-columns: 1fr; }
+    .feature.flip .shot { order: 0; border-left: 0; }
+    .shot { border-right: 0; border-bottom: 1px solid var(--line); }
+    .grid { grid-template-columns: 1fr 1fr; }
+    .skills { grid-template-columns: 1fr 1fr; }
+    .sec-head { flex-direction: column; align-items: start; }
+    nav .links { display: none; }
+  }
+  @media (max-width: 560px) { .grid, .skills { grid-template-columns: 1fr; } .body { padding: 26px 22px; } header { padding: 56px 0 48px; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#">Diogo Moreno</a>
+    <div class="links">
+      <a href="#projects">Projects</a>
+      <a href="#more">Case studies</a>
+      <a href="#skills">Skills</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap hero">
+    <div>
+      <div class="eyebrow mono">Data Analyst · Toronto, ON · Open to work</div>
+      <h1>I turn messy business data into <em>decisions</em>.</h1>
+      <p class="lede">SQL, Python, Power BI and Tableau. I analyze sales, operations and ERP data (e-commerce orders,
+        SAP order-to-cash and procure-to-pay) and explain what to do about it in plain language.</p>
+      <div class="cta">
+        <a class="btn primary" href="#projects">See projects ↓</a>
+        <a class="btn ghost" href="https://drive.google.com/file/d/1WOarfpV2cUKbKI_EL36Bx2eR8cB_N__m/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/diogomoreno" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn ghost" href="https://github.com/moreno287" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="stats" aria-label="Portfolio at a glance">
+      <div class="stat"><b>9</b><span>end-to-end projects</span></div>
+      <div class="stat"><b>99k</b><span>e-commerce orders analyzed</span></div>
+      <div class="stat"><b>25</b><span>SAP tables modeled (SD, MM, FI)</span></div>
+      <div class="stat"><b>1.2M</b><span>loan transactions mined in SQL</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="mono" style="color:var(--orange)">Featured work</div><h2>Projects</h2></div>
+      <p>Each project starts from a business question and ends with findings and recommendations. Code, SQL and data are on GitHub.</p>
+    </div>
+
+    <article class="feature">
+      <div class="shot"><img src="assets/sap.jpg" alt="Line chart: on-time shipping by plant, Montreal far below Toronto and Calgary"></div>
+      <div class="body">
+        <div class="mono kicker">ERP · SAP S/4HANA data model</div>
+        <h3>SAP Order-to-Cash &amp; Procure-to-Pay Analytics</h3>
+        <p>Analysis of a distributor's sales and purchasing in SAP's own tables (VBAK, LIKP, VBRK, BSAD, EKKO, MSEG, RBKP …) across the full document flow.</p>
+        <ul class="findings">
+          <li>Montreal DC ships only <b>43% of orders on time</b> vs. 78% in Toronto.</li>
+          <li>Six customers are 5.6% of revenue but <b>25% of overdue receivables</b>.</li>
+          <li>Three-way match caught a vendor whose invoices jumped to <b>61% above PO price</b>.</li>
+        </ul>
+        <div class="tags"><span class="tag">SQL</span><span class="tag">DuckDB</span><span class="tag">SAP SD / MM / FI</span><span class="tag">Python</span><span class="tag">DSO &amp; AR aging</span></div>
+        <div class="links-row">
+          <a href="sap-dashboard/">Interactive dashboard →</a>
+          <a href="https://github.com/moreno287/sap-erp-analytics" target="_blank" rel="noopener">Code &amp; SQL</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="feature flip">
+      <div class="shot"><img src="assets/ecommerce.jpg" alt="Bar chart: review score drops from 4.29 to under 2 stars when orders arrive late"></div>
+      <div class="body">
+        <div class="mono kicker">E-commerce · Olist marketplace</div>
+        <h3>What drives revenue and reviews in e-commerce</h3>
+        <p>~99,000 real orders from a Brazilian marketplace across 7 related tables: growth, categories, delivery performance, retention and RFM segments.</p>
+        <ul class="findings">
+          <li>A late order costs <b>about 2 stars</b> (4.29★ on time → 2.10★ at 4–7 days late).</li>
+          <li><b>97% of customers buy once</b>, so the second order is the cheapest growth lever.</li>
+          <li>Black Friday 2017 brought <b>~5× a normal day's</b> orders.</li>
+        </ul>
+        <div class="tags"><span class="tag">SQL</span><span class="tag">Window functions</span><span class="tag">RFM</span><span class="tag">Python</span><span class="tag">matplotlib</span></div>
+        <div class="links-row">
+          <a href="https://github.com/moreno287/ecommerce-olist-analytics" target="_blank" rel="noopener">Code, SQL &amp; findings →</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="feature">
+      <div class="shot"><img src="assets/shelter.jpg" alt="Chart: growth of Toronto shelter population groups since 2018"></div>
+      <div class="body">
+        <div class="mono kicker">Public sector · City of Toronto open data</div>
+        <h3>Toronto Shelter System Flow</h3>
+        <p>Who enters, who stays and who leaves Toronto's shelter system, from 2018 to 2026, with SQL, Python and a Power BI dashboard.</p>
+        <ul class="findings">
+          <li>New entries fell <b>~60%</b> vs. 2018.</li>
+          <li>Chronic homelessness <b>more than doubled</b> (+134%).</li>
+          <li>Monthly exits to housing fell from 7.4% to <b>~3.5%</b> and haven't recovered.</li>
+        </ul>
+        <div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">SQLite</span><span class="tag">Python</span></div>
+        <div class="links-row">
+          <a href="https://github.com/moreno287/toronto-shelter-system-flow" target="_blank" rel="noopener">Code &amp; dashboard →</a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="more">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="mono" style="color:var(--orange)">More work</div><h2>Case studies</h2></div>
+      <p>Excel, SQL, Tableau and Python projects. Summaries are in <a href="https://github.com/moreno287/data-analytics-case-studies" target="_blank" rel="noopener">one repository</a>.</p>
+    </div>
+    <div class="grid">
+      <a class="card" href="https://github.com/moreno287/mining-project" target="_blank" rel="noopener">
+        <span class="mono">Python · Industrial</span>
+        <h4>Mining flotation quality</h4>
+        <p>Exploring plant process data to predict silica impurity in iron ore concentrate in real time, instead of waiting an hour for the lab.</p>
+        <span class="go">View on GitHub →</span>
+      </a>
+      <a class="card" href="https://github.com/moreno287/data-analytics-case-studies/tree/main/01-doordash-marketing-excel" target="_blank" rel="noopener">
+        <span class="mono">Excel · Marketing</span>
+        <h4>DoorDash marketing campaign</h4>
+        <p>Campaign and customer demographics analyzed only in Excel (VLOOKUPs, pivot tables) to plan the next campaign.</p>
+        <span class="go">Read the case →</span>
+      </a>
+      <a class="card" href="https://github.com/moreno287/data-analytics-case-studies/tree/main/02-school-success-tableau" target="_blank" rel="noopener">
+        <span class="mono">Tableau · Education</span>
+        <h4>School success in Massachusetts</h4>
+        <p>KPI dashboard comparing ~1,800 schools across hundreds of features, presented to stakeholders on video.</p>
+        <span class="go">Read the case →</span>
+      </a>
+      <a class="card" href="https://github.com/moreno287/data-analytics-case-studies/tree/main/03-world-bank-loans-sql" target="_blank" rel="noopener">
+        <span class="mono">SQL · Finance</span>
+        <h4>World Bank loans: São Tomé</h4>
+        <p>1.2M loan transactions mined in SQL for outliers, patterns and trends, with a written report.</p>
+        <span class="go">Read the case →</span>
+      </a>
+      <a class="card" href="https://github.com/moreno287/data-analytics-case-studies/tree/main/04-hospital-stay-sql" target="_blank" rel="noopener">
+        <span class="mono">SQL · Healthcare</span>
+        <h4>Hospital length of stay</h4>
+        <p>Factors linked to length of stay for 101,000+ patients, analyzed in MySQL, with a histogram built in SQL.</p>
+        <span class="go">Read the case →</span>
+      </a>
+      <a class="card" href="https://public.tableau.com/views/NBAProject_17457755899160/StackedBarChart" target="_blank" rel="noopener">
+        <span class="mono">Tableau · Sports</span>
+        <h4>NBA 2022 season</h4>
+        <p>Heatmaps, treemaps and bubble charts combined into a Tableau story with a written report.</p>
+        <span class="go">Open in Tableau Public →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="mono" style="color:var(--orange)">Toolkit</div><h2>Skills</h2></div>
+    </div>
+    <div class="skills">
+      <div class="skill"><h4>Data &amp; SQL</h4><ul><li>SQL (MySQL, SQLite, DuckDB)</li><li>CTEs &amp; window functions</li><li>Data modeling &amp; cleaning</li><li>Excel: pivots, lookups</li></ul></div>
+      <div class="skill"><h4>BI &amp; Visualization</h4><ul><li>Power BI &amp; DAX</li><li>Tableau</li><li>MicroStrategy</li><li>Dashboard design</li></ul></div>
+      <div class="skill"><h4>Programming</h4><ul><li>Python (pandas, matplotlib)</li><li>R</li><li>Jupyter</li><li>Git &amp; GitHub</li></ul></div>
+      <div class="skill"><h4>Business domains</h4><ul><li>SAP SD / MM / FI data</li><li>E-commerce &amp; marketing</li><li>Order-to-cash, procure-to-pay</li><li>Aviation operations</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about">
+    <div><div class="mono" style="color:var(--orange)">About</div><h2>From aeronautical management to data</h2></div>
+    <div>
+      <p>I'm moving from aeronautical management into data analysis. Aviation runs on schedules, costs and strict processes, and that's the kind of operational data I enjoy working with.</p>
+      <p>What I like most is turning raw data into insights people can act on: cleaning it, modeling it in SQL, finding what matters and presenting it clearly. I'm looking for a company that wants to get more out of its data, especially in operations, ERP and e-commerce.</p>
+      <p>Based in Toronto. Outside work I climb, run and swim.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="mono" style="color:var(--orange)">Contact</div>
+    <h2>Looking for a data analyst?</h2>
+    <p>I'm open to Data Analyst and BI roles in Toronto. The fastest way to reach me is LinkedIn.</p>
+    <div class="cta" style="margin-top:26px">
+      <a class="btn primary" href="https://www.linkedin.com/in/diogomoreno" target="_blank" rel="noopener">Message me on LinkedIn</a>
+      <a class="btn" href="https://drive.google.com/file/d/1WOarfpV2cUKbKI_EL36Bx2eR8cB_N__m/view?usp=sharing" target="_blank" rel="noopener">Download resume</a>
+      <a class="btn" href="https://public.tableau.com/app/profile/diogo.moreno/vizzes" target="_blank" rel="noopener">Tableau Public</a>
+    </div>
+    <div class="small">© 2026 Diogo Moreno · Toronto, Ontario</div>
+  </div>
+</footer>
+</body>
+</html>

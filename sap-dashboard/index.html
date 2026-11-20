@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAP O2C &amp; P2P Dashboard · Diogo Moreno</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%230f1b2d%22/%3E%3Crect x=%227%22 y=%2216%22 width=%224%22 height=%229%22 rx=%221%22 fill=%22%232a78d6%22/%3E%3Crect x=%2214%22 y=%2210%22 width=%224%22 height=%2215%22 rx=%221%22 fill=%22%231baf7a%22/%3E%3Crect x=%2221%22 y=%226%22 width=%224%22 height=%2219%22 rx=%221%22 fill=%22%23eb6834%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#0f1b2d; --ink-2:#3b4658; --muted:#6b7484; --line:#e4e2dc; --paper:#faf9f6; --card:#fff;
+          --blue:#2a78d6; --orange:#eb6834; --aqua:#1baf7a; --gray:#b8b7b0; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink); font:400 15px/1.5 Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1200px; margin:0 auto; padding:0 22px; }
+  .mono { font-family:"JetBrains Mono", ui-monospace, monospace; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; }
+  header { padding:28px 0 22px; border-bottom:1px solid var(--line); }
+  header a.back { color:var(--ink-2); text-decoration:none; font-size:14px; }
+  header a.back:hover { color:var(--orange); }
+  h1 { font-family:Fraunces, serif; font-size:clamp(26px,3.6vw,38px); margin:14px 0 6px; letter-spacing:-.015em; line-height:1.1; }
+  .sub { color:var(--ink-2); margin:0; max-width:760px; }
+  .bar { display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between; padding:18px 0; }
+  .filters { display:flex; gap:6px; flex-wrap:wrap; }
+  .filters button { font:500 14px Inter, sans-serif; padding:8px 16px; border-radius:999px; border:1.5px solid var(--line); background:var(--card); color:var(--ink-2); cursor:pointer; }
+  .filters button[aria-pressed="true"] { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .filters button:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+  .note { color:var(--muted); font-size:13px; }
+  .kpis { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:18px; }
+  .kpi { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+  .kpi .mono { color:var(--muted); }
+  .kpi b { display:block; font-family:Fraunces, serif; font-size:30px; line-height:1.15; margin:6px 0 2px; }
+  .kpi span { font-size:13px; color:var(--ink-2); }
+  .kpi .scope { display:inline-block; margin-top:6px; font-size:11.5px; color:var(--muted); }
+  .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; padding-bottom:18px; }
+  .panel { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 20px 14px; min-width:0; }
+  .panel h2 { font-size:16px; margin:0 0 2px; }
+  .panel p { margin:0 0 12px; color:var(--muted); font-size:13px; }
+  .chart { position:relative; height:280px; }
+  .section-title { margin:26px 0 12px; display:flex; align-items:baseline; gap:12px; }
+  .section-title h3 { font-family:Fraunces, serif; font-size:22px; margin:0; }
+  .section-title .mono { color:var(--orange); }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  th, td { text-align:left; padding:9px 6px; border-bottom:1px solid var(--line); }
+  th { color:var(--muted); font-weight:500; font-size:12.5px; }
+  td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
+  .flag { color:var(--orange); font-weight:600; }
+  footer { padding:28px 0 40px; color:var(--muted); font-size:13px; border-top:1px solid var(--line); margin-top:10px; }
+  footer a { color:var(--ink-2); }
+  @media (max-width:1000px) { .kpis { grid-template-columns:repeat(2,1fr); } .grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="../">← Diogo Moreno · Portfolio</a>
+    <h1>SAP Order-to-Cash &amp; Procure-to-Pay</h1>
+    <p class="sub">Maple Industrial Supply Inc. (fictional), company code 1000, Jan 2024 – Jun 2026. Built from SAP tables
+      VBAK, LIKP, VBRK, BSID/BSAD, EKKO/EKPO, MSEG and RBKP/RSEG with simulated data.
+      <a href="https://github.com/moreno287/sap-erp-analytics" target="_blank" rel="noopener">SQL &amp; method on GitHub</a>.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="bar">
+    <div class="filters" role="group" aria-label="Filter by plant">
+      <button data-plant="all" aria-pressed="true">All plants</button>
+      <button data-plant="1100" aria-pressed="false">1100 Toronto</button>
+      <button data-plant="1200" aria-pressed="false">1200 Montreal</button>
+      <button data-plant="1300" aria-pressed="false">1300 Calgary</button>
+    </div>
+    <div class="note">Plant filter applies to sales KPIs and charts. Receivables and purchasing are company-wide.</div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="mono">Net revenue H1 2026</div><b id="k-rev">–</b><span id="k-rev-d">–</span></div>
+    <div class="kpi"><div class="mono">On-time shipping</div><b id="k-ot">–</b><span>last 12 months</span></div>
+    <div class="kpi"><div class="mono">Order → cash</div><b id="k-o2c">–</b><span id="k-o2c-d">–</span></div>
+    <div class="kpi"><div class="mono">Overdue receivables</div><b id="k-ar">–</b><span id="k-ar-d">–</span><br><span class="scope">company-wide</span></div>
+    <div class="kpi"><div class="mono">3-way match pass rate</div><b id="k-match">–</b><span id="k-match-d">–</span><br><span class="scope">company-wide</span></div>
+  </div>
+
+  <div class="section-title"><span class="mono">SD · FI-AR</span><h3>Order to cash</h3></div>
+  <div class="grid">
+    <div class="panel"><h2>Monthly net revenue</h2><p>Billing documents (VBRK/VBRP), CAD, by shipping plant</p><div class="chart"><canvas id="c-rev" aria-label="Monthly net revenue"></canvas></div></div>
+    <div class="panel"><h2>On-time shipping by month</h2><p>Goods issue (LIKP.WADAT_IST) on or before requested date (VBAK.VDATU)</p><div class="chart"><canvas id="c-ot" aria-label="On-time shipping by month"></canvas></div></div>
+    <div class="panel"><h2>Slowest-paying customers</h2><p>Average days paid after due date, cleared items (BSAD), 20+ invoices</p><div class="chart"><canvas id="c-pay" aria-label="Slowest paying customers"></canvas></div></div>
+    <div class="panel"><h2>Days Sales Outstanding</h2><p>Open AR ÷ last 90 days billed × 90, at each quarter end</p><div class="chart"><canvas id="c-dso" aria-label="Days sales outstanding"></canvas></div></div>
+  </div>
+
+  <div class="section-title"><span class="mono">MM · FI-AP</span><h3>Procure to pay</h3></div>
+  <div class="grid">
+    <div class="panel"><h2>Least reliable vendors</h2><p>% of goods receipts (MSEG 101) more than 2 days after promised date (EKET.EINDT)</p><div class="chart"><canvas id="c-vend" aria-label="Vendor late deliveries"></canvas></div></div>
+    <div class="panel"><h2>Requisition → PO and three-way match</h2><p>EBAN → EKKO by purchasing group; RSEG vs EKPO vs MSEG</p>
+      <table id="t-pr"><thead><tr><th>Purchasing group</th><th class="num">Requisitions</th><th class="num">Avg days PR→PO</th><th class="num">% over 5 days</th></tr></thead><tbody></tbody></table>
+      <table id="t-match" style="margin-top:16px"><thead><tr><th>Match result</th><th class="num">Invoices</th><th class="num">%</th><th class="num">Overbilled CAD</th></tr></thead><tbody></tbody></table>
+    </div>
+  </div>
+</main>
+
+<footer><div class="wrap">Data is simulated with SAP S/4HANA table structures, so no real company is shown. Built with SQL (DuckDB), Python and Chart.js by
+  <a href="../">Diogo Moreno</a>.</div></footer>
+
+<script src="chart.umd.js"></script>
+<script>
+const C = { blue:'#2a78d6', orange:'#eb6834', aqua:'#1baf7a', gray:'#b8b7b0', ink:'#0f1b2d', muted:'#6b7484', grid:'#eeede8' };
+const PLANT = { '1100': { name:'Toronto', color:C.blue }, '1200': { name:'Montreal', color:C.orange }, '1300': { name:'Calgary', color:C.aqua } };
+const fmtCAD = v => v >= 1e6 ? `$${(v/1e6).toFixed(1)}M` : `$${Math.round(v/1e3)}k`;
+const pct = v => `${v.toFixed(1)}%`;
+
+Chart.defaults.font.family = 'Inter, system-ui, sans-serif';
+Chart.defaults.color = C.muted;
+Chart.defaults.plugins.legend.labels.boxWidth = 10;
+Chart.defaults.plugins.legend.labels.boxHeight = 10;
+Chart.defaults.plugins.tooltip.backgroundColor = C.ink;
+Chart.defaults.plugins.tooltip.padding = 10;
+Chart.defaults.maintainAspectRatio = false;
+const axis = (extra={}) => ({ grid:{ color:C.grid }, border:{ display:false }, ...extra });
+
+let D, charts = {};
+
+fetch('data.json').then(r => r.json()).then(d => { D = d; buildStatic(); render('all'); });
+
+document.querySelectorAll('.filters button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.filters button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  render(b.dataset.plant);
+}));
+
+function render(plant) {
+  const plants = plant === 'all' ? ['1100','1200','1300'] : [plant];
+  const months = [...new Set(D.monthly_revenue.map(r => r.month))];
+
+  // KPIs
+  const rev = (from, to) => D.monthly_revenue.filter(r => plants.includes(r.plant) && r.month >= from && r.month <= to).reduce((s,r) => s + r.revenue, 0);
+  const r26 = rev('2026-01','2026-06'), r25 = rev('2025-01','2025-06');
+  document.getElementById('k-rev').textContent = fmtCAD(r26);
+  document.getElementById('k-rev-d').textContent = `${r26 >= r25 ? '+' : ''}${(100*(r26/r25-1)).toFixed(0)}% vs H1 2025`;
+  const last12 = D.on_time.filter(r => plants.includes(r.plant) && r.month >= '2025-06');
+  const ot = 100 * last12.reduce((s,r)=>s+r.on_time,0) / last12.reduce((s,r)=>s+r.deliveries,0);
+  document.getElementById('k-ot').textContent = pct(ot);
+  const cyc = D.cycle.find(c => plant === 'all' ? c.plant === 'All plants' : c.plant.startsWith(plant));
+  document.getElementById('k-o2c').textContent = `${Math.round(cyc.total_o2c_days)} days`;
+  document.getElementById('k-o2c-d').textContent = `${cyc.order_to_ship_days} to ship · ${cyc.bill_to_cash_days} to get paid`;
+
+  // Revenue: stacked bars by plant
+  charts.rev?.destroy();
+  charts.rev = new Chart(document.getElementById('c-rev'), {
+    type:'bar',
+    data:{ labels:months, datasets: plants.map(p => ({ label:PLANT[p].name, backgroundColor:PLANT[p].color, borderColor:'#fff', borderWidth:{top:2}, borderRadius:3, borderSkipped:'bottom',
+      data: months.map(m => (D.monthly_revenue.find(r => r.month === m && r.plant === p) || {revenue:0}).revenue) })) },
+    options:{ interaction:{ mode:'index', intersect:false },
+      plugins:{ legend:{ display: plants.length > 1, position:'top', align:'start' }, tooltip:{ callbacks:{ label: c => ` ${c.dataset.label}: ${fmtCAD(c.raw)}` } } },
+      scales:{ x:axis({ stacked:true, grid:{display:false}, ticks:{ maxTicksLimit:10 } }), y:axis({ stacked:true, ticks:{ callback:fmtCAD } }) } }
+  });
+
+  // On-time by month: one line per plant
+  const otMonths = [...new Set(D.on_time.map(r => r.month))];
+  charts.ot?.destroy();
+  charts.ot = new Chart(document.getElementById('c-ot'), {
+    type:'line',
+    data:{ labels:otMonths, datasets: plants.map(p => ({ label:PLANT[p].name, borderColor:PLANT[p].color, backgroundColor:PLANT[p].color, borderWidth:2, pointRadius:0, pointHoverRadius:5, tension:.25,
+      data: otMonths.map(m => { const r = D.on_time.find(x => x.month === m && x.plant === p); return r ? +(100*r.on_time/r.deliveries).toFixed(1) : null; }) })) },
+    options:{ interaction:{ mode:'index', intersect:false },
+      plugins:{ legend:{ display: plants.length > 1, position:'top', align:'start' }, tooltip:{ callbacks:{ label: c => ` ${c.dataset.label}: ${c.raw}%` } } },
+      scales:{ x:axis({ grid:{display:false}, ticks:{ maxTicksLimit:10 } }), y:axis({ min:0, max:100, ticks:{ callback: v => v + '%' } }) } }
+  });
+}
+
+function buildStatic() {
+  // AR & match KPIs (company-wide)
+  const totalAR = D.aging.reduce((s,r)=>s+r.open_amount_cad,0);
+  const overdue = D.aging.filter(r => !r.aging_bucket.includes('Not yet due')).reduce((s,r)=>s+r.open_amount_cad,0);
+  document.getElementById('k-ar').textContent = fmtCAD(overdue);
+  document.getElementById('k-ar-d').textContent = `${(100*overdue/totalAR).toFixed(1)}% of ${fmtCAD(totalAR)} open AR`;
+  const matched = D.match.find(m => m.match_result === 'Matched');
+  const totalInv = D.match.reduce((s,m)=>s+m.invoices,0);
+  const over = D.match.reduce((s,m)=>s+m.overbilled_cad,0);
+  document.getElementById('k-match').textContent = pct(100*matched.invoices/totalInv);
+  document.getElementById('k-match-d').textContent = `${fmtCAD(over)} overbilled caught`;
+
+  const hbar = (id, labels, data, colors, fmt, max) => new Chart(document.getElementById(id), {
+    type:'bar', data:{ labels, datasets:[{ data, backgroundColor:colors, borderRadius:4, borderSkipped:'start', barThickness:16 }] },
+    options:{ indexAxis:'y', plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: c => ' ' + fmt(c.raw) } } },
+      scales:{ x:axis({ min:0, max, ticks:{ callback: fmt } }), y:axis({ grid:{display:false}, ticks:{ color:C.ink } }) } }
+  });
+
+  hbar('c-pay', D.late_payers.map(r => `${r.name} (${r.terms})`), D.late_payers.map(r => r.avg_days_past_due),
+       D.late_payers.map(r => r.avg_days_past_due > 15 ? C.orange : C.blue), v => `${v} days`);
+  hbar('c-vend', D.vendors.map(r => `${r.name} (${r.country})`), D.vendors.map(r => r.pct_late),
+       D.vendors.map(r => r.pct_late > 20 ? C.orange : C.blue), v => `${v}%`);
+
+  new Chart(document.getElementById('c-dso'), {
+    type:'line',
+    data:{ labels: D.dso.map(r => r.quarter_end), datasets:[{ label:'DSO', data:D.dso.map(r => r.dso_days), borderColor:C.blue, backgroundColor:C.blue, borderWidth:2, pointRadius:4, pointHoverRadius:6, tension:.2 }] },
+    options:{ plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: c => ` DSO: ${c.raw} days` } } },
+      scales:{ x:axis({ grid:{display:false} }), y:axis({ min:0, ticks:{ callback: v => v + ' d' } }) } }
+  });
+
+  document.querySelector('#t-pr tbody').innerHTML = D.pr_to_po.map(r =>
+    `<tr><td>${r.purchasing_group}</td><td class="num">${r.requisitions.toLocaleString()}</td>
+     <td class="num ${r.avg_days_pr_to_po > 5 ? 'flag' : ''}">${r.avg_days_pr_to_po}</td>
+     <td class="num ${r.pct_over_5_days > 20 ? 'flag' : ''}">${r.pct_over_5_days}%</td></tr>`).join('');
+  document.querySelector('#t-match tbody').innerHTML = D.match.map(r =>
+    `<tr><td>${r.match_result}</td><td class="num">${r.invoices.toLocaleString()}</td><td class="num">${r.pct_invoices}%</td>
+     <td class="num ${r.overbilled_cad > 1 ? 'flag' : ''}">${r.match_result === 'Matched' ? '–' : Math.round(r.overbilled_cad).toLocaleString()}</td></tr>`).join('');
+}
+</script>
+</body>
+</html>
